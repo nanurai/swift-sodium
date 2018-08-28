@@ -73,6 +73,7 @@ extension KeyExchange {
 }
 
 extension KeyExchange: KeyPairGenerator {
+  
     public typealias PublicKey = Bytes
     public typealias SecretKey = Bytes
 
@@ -90,6 +91,12 @@ extension KeyExchange: KeyPairGenerator {
         _ sk: UnsafeMutablePointer<UInt8>,
         _ seed: UnsafePointer<UInt8>
     ) -> Int32 = crypto_kx_seed_keypair
+  
+  public static var keypairFromSecret: (UnsafeMutablePointer<UInt8>, UnsafeMutablePointer<UInt8>) -> Int32 {
+    return { _, _ in
+      return Int32(-1)
+    }
+  }
 
     public struct KeyPair: KeyPairProtocol {
         public typealias PublicKey = KeyExchange.PublicKey

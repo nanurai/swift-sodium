@@ -374,6 +374,12 @@ extension Box: KeyPairGenerator {
         _ sk: UnsafeMutablePointer<UInt8>,
         _ seed: UnsafePointer<UInt8>
     ) -> Int32 = crypto_box_seed_keypair
+  
+    public static var keypairFromSecret: (UnsafeMutablePointer<UInt8>, UnsafeMutablePointer<UInt8>) -> Int32 {
+        return { _, _ in
+            return Int32(-1)
+        }
+    }
 
     public struct KeyPair: KeyPairProtocol {
         public typealias PublicKey = Box.PublicKey

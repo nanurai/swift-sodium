@@ -21,6 +21,11 @@ public protocol KeyPairGenerator {
         _ sk: UnsafeMutablePointer<UInt8>,
         _ seed: UnsafePointer<UInt8>
     ) -> Int32 { get }
+  
+  static var keypairFromSecret: (
+    _ secret: UnsafeMutablePointer<UInt8>,
+    _ pk: UnsafeMutablePointer<UInt8>
+  ) -> Int32 { get }
 }
 
 extension KeyPairGenerator {
@@ -56,4 +61,15 @@ extension KeyPairGenerator {
 
         return KeyPair(publicKey: pk, secretKey: sk)
     }
+  
+  public func keyPair(secret: Bytes) -> KeyPair? {
+    guard secret.count == 32 else { return nil }
+    var sk = secret
+    var pk = Bytes(count: PublicKeyBytes)
+    guard .SUCCESS == Self.keypairFromSecret(&sk, &pk).exitCode else {
+      return nil
+    }
+    
+    return KeyPair(publicKey: pk, secretKey: secret)
+  }
 }
