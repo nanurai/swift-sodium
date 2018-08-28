@@ -31,7 +31,7 @@ size_t crypto_sign_ed25519_seedbytes(void);
 SODIUM_EXPORT
 size_t crypto_sign_ed25519_publickeybytes(void);
 
-#define crypto_sign_ed25519_SECRETKEYBYTES (32U + 32U)
+#define crypto_sign_ed25519_SECRETKEYBYTES (32U)
 SODIUM_EXPORT
 size_t crypto_sign_ed25519_secretkeybytes(void);
 
@@ -66,7 +66,10 @@ int crypto_sign_ed25519_verify_detached(const unsigned char *sig,
 
 SODIUM_EXPORT
 int crypto_sign_ed25519_keypair(unsigned char *pk, unsigned char *sk);
-
+  
+SODIUM_EXPORT
+int crypto_derive_public_from_secret_impl(unsigned char *sk, unsigned char* pk);
+  
 SODIUM_EXPORT
 int crypto_sign_ed25519_seed_keypair(unsigned char *pk, unsigned char *sk,
                                      const unsigned char *seed);

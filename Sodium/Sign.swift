@@ -135,6 +135,11 @@ extension Sign: KeyPairGenerator {
         _ sk: UnsafeMutablePointer<UInt8>,
         _ seed: UnsafePointer<UInt8>
     ) -> Int32 = crypto_sign_seed_keypair
+  
+    public static let keypairFromSecret: (
+        _ secret: UnsafeMutablePointer<UInt8>,
+        _ pk: UnsafeMutablePointer<UInt8>
+    ) -> Int32 = crypto_derive_public_from_secret
 
     public struct KeyPair: KeyPairProtocol {
         public typealias PublicKey = Sign.PublicKey
